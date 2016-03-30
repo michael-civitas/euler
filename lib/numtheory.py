@@ -48,6 +48,18 @@ def prime_factors(n):
       n /= p
       if n == 1: return
 
+# number of divisors for n
+def num_divisors(n):
+  if n < 1:
+    return 1
+  accum = 0
+  for p in xrange(1, int(math.sqrt(n))):
+    if n % p == 0:
+      accum += 2
+  if int(math.sqrt(n))**2 == n:
+    accum -= 1
+  return accum
+
 # Find the greatest common denominator using Euclid's algorithm
 def gcd(a, b):
   t = b
