@@ -7,21 +7,19 @@ import math
 def primes(n):
   if n < 2: return
   yield 2
-  prime_list = [2]
-  for i in xrange(3, n, 2):
-    check = True
-    for j in prime_list:
-      if j > n**0.5:
-        break
-      if i % j == 0:
-        check = False
-        break
-
-    if check:
-      prime_list.append(i)
-      yield i
+  sievebound = (n-1) / 2
+  sieve = [False] * sievebound
+  crosslimit = int(n**0.5) / 2
+  for i in xrange(1, crosslimit):
+    if not sieve[i]:
+      for j in xrange(2*i*(i+1), sievebound, 2*i+1):
+        sieve[j] = True
+  for i in xrange(1, sievebound):
+    if not sieve[i]:
+      yield 2*i+1
 
 # Returns generator of infinite list of primes
+# Can't use the seive without an upper bound
 def n_primes():
   yield 2
   prime_list = [2]
