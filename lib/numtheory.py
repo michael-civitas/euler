@@ -55,8 +55,27 @@ def num_divisors(n):
     if n % p == 0:
       accum += 2
   if int(math.sqrt(n))**2 == n:
-    accum -= 1
+    accum += 1
   return accum
+
+# get all divisors of n
+def divisors(n):
+  divs = []
+  if n <= 1:
+    return divs
+  for p in xrange(1, int(math.sqrt(n))+1):
+    if n % p == 0:
+      divs.append(p)
+      if not p == n / p:
+        divs.append(n / p)
+  return divs
+
+# get all proper divisors on n
+def p_divisors(n):
+  tmp = divisors(n)
+  if len(tmp) > 1:
+    tmp.remove(n)
+  return tmp
 
 # Find the greatest common denominator using Euclid's algorithm
 def gcd(a, b):
